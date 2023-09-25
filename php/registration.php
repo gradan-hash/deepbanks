@@ -21,16 +21,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
   $email=mysqli_real_escape_string($conn,$email);
 
 
-  $phone = stripslashes($_POST['phone']);
-  $phone=mysqli_real_escape_string($conn,$phone);
+  $contact = stripslashes($_POST['contact']);
+  $contact=mysqli_real_escape_string($conn,$contact);
 
 
-  $address = stripslashes($_POST['address']);
-  $address=mysqli_real_escape_string($conn,$address);
+ 
 
   
 
-  $query = "INSERT INTO `customers`( `name`, `password`, `email`,`phone`,`address`) VALUES ('$name','$password','$email','$phone', '$address')";
+  $query = "INSERT INTO `customers`( `name`, `password`, `email`,`contact`) VALUES ('$name','$password','$email','$contact')";
 
   
   
@@ -40,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
   if($cr){
+    echo "sucess";
     
     header('location: ../login.html');
     
