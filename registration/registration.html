@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deep Banks</title>
+    <link rel="stylesheet" type="text/css" href="registration.css" />
+  </head>
+  <body>
+    <section class="registration">
+      <div class="registration-inner">
+        <h1>Registration</h1>
+        <form action="registration.php" method="post" class="form">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            required
+            placeholder="enter name"
+          />
+          <br />
+          <label for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            required
+            placeholder="enter email"
+          />
+          <br />
+          <label for="password">contact</label>
+          <input
+            type="tel"
+            name="contact"
+            id="password"
+            required
+            placeholder="enter your contact"
+          />
+          <br />
+          <label for="confirm_password">Password</label>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            required
+            placeholder="enter password"
+          />
+          <br />
+          <input type="submit" value="Let's Go" class="registration-btn" />
+        </form>
+        <p class="login-tag">
+          Already Registered?<a href="../login/login.html" class="login-tag--"
+            >Login</a
+          >
+        </p>
+      </div>
+    </section>
+  </body>
+</html>
