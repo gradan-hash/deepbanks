@@ -21,6 +21,21 @@ $checking_query = "SELECT * FROM checking WHERE user_id = $user_id";
 $checking_result = mysqli_query($conn, $checking_query);
 ?>
 
+<?php
+// Fetch savings account balance
+$savings_balance = 0; // Initialize with a default value
+if ($savings_row = mysqli_fetch_assoc($savings_result)) {
+    $savings_balance = $savings_row['balance'];
+}
+
+// Fetch checking account balance
+$checking_balance = 0; // Initialize with a default value
+if ($checking_row = mysqli_fetch_assoc($checking_result)) {
+    $checking_balance = $checking_row['balance'];
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,17 +122,17 @@ $checking_result = mysqli_query($conn, $checking_query);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    while ($row = mysqli_fetch_assoc($savings_result)) {
-                        echo "<h4>"."Current balance:" .$row['balance'] ."</h4>";
-                        echo "<tr>";
-                        echo "<td>" . $row['transaction_id'] . "</td>";
-                        echo "<td>" . '$' . number_format($row['amount'], 2) . "</td>";
-                        echo "<td>" . $row['transaction_date'] . "</td>";
-                        echo "</tr>";
-                    }
-                    ?>
-                </tbody>
+        <h4>Current savings account balance: $<?php echo number_format($savings_balance, 2); ?></h4>
+        <?php
+        while ($row = mysqli_fetch_assoc($savings_result)) {
+            echo "<tr>";
+            echo "<td>" . $row['transaction_id'] . "</td>";
+            echo "<td>" . '$' . number_format($row['amount'], 2) . "</td>";
+            echo "<td>" . $row['transaction_date'] . "</td>";
+            echo "</tr>";
+        }
+        ?>
+    </tbody>
             </table>
 
             <h2>Checking Account Transactions</h2>
@@ -130,9 +145,12 @@ $checking_result = mysqli_query($conn, $checking_query);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
+        <h4>Current checking account balance: $<?php echo number_format($checking_balance, 2); ?></h4>
+        <?php
+               
+
                     while ($row = mysqli_fetch_assoc($checking_result)) {
-                        echo "<h4>"."Current balance:" .$row['balance'] ."</h4>";
+                        
                         echo "<tr>";
                         echo "<td>" . $row['transaction_id'] . "</td>";
                         echo "<td>" . '$' . number_format($row['amount'], 2) . "</td>";
@@ -140,7 +158,7 @@ $checking_result = mysqli_query($conn, $checking_query);
                         echo "</tr>";
                     }
                     ?>
-                </tbody>
+    </tbody>
             </table>
         </section>
     </section>

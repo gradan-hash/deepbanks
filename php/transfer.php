@@ -3,8 +3,8 @@ session_start();
 include_once "db.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $source_account = $_POST['source_account'];
-    $destination_account = $_POST['destination_account'];
+    $source_account = trim($_POST['source_account']);
+    $destination_account = trim($_POST['destination_account']);
     $amount = floatval($_POST['amount']);
 
 
@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 if ($source_account === $destination_account) {
   echo "<script>
       alert('Source and destination accounts cannot be the same.');
-      window.location.href = 'transfer.html';
+      window.location.href = '../transfer/transfer.html';
       </script>";
   exit;
 }
@@ -22,7 +22,7 @@ if ($source_account === $destination_account) {
     if ($amount <= 0) {
         echo "<script>
             alert('Amount must be greater than 0. Please enter a valid amount.');
-            window.location.href = 'transfer.html';
+            window.location.href = '../transfer/transfer.html';
             </script>";
         exit;
     }
