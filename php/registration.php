@@ -1,54 +1,35 @@
 <?php
-
-
 session_start();
 include "db.php";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST"){
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = stripslashes($_POST['name']);
+    $name = mysqli_real_escape_string($conn, $name);
 
-  $name = stripslashes ($_POST['name']);
-  $name=mysqli_real_escape_string($conn,$name);
+    $password = stripslashes($_POST['password']);
+    $password = mysqli_real_escape_string($conn, $password);
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
+    $email = stripslashes($_POST['email']);
+    $email = mysqli_real_escape_string($conn, $email);
 
-  
-  $password = stripslashes($_POST['password']);
-  $password=mysqli_real_escape_string($conn,$password);
-  
-   $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+    $contact = stripslashes($_POST['contact']);
+    $contact = mysqli_real_escape_string($conn, $contact);
 
-  
-  $email = stripslashes($_POST['email']);
-  $email=mysqli_real_escape_string($conn,$email);
+    $query = "INSERT INTO `customers`(`name`, `password`, `email`, `contact`) VALUES ('$name','$hashed_password','$email','$contact')";
 
+    $cr = mysqli_query($conn, $query);
 
-  $contact = stripslashes($_POST['contact']);
-  $contact=mysqli_real_escape_string($conn,$contact);
+    if ($cr) {
+        $user_id = mysqli_insert_id($conn); // Get the auto-generated user_id
+        $_SESSION['user_id'] = $user_id; // Store user_id in the session
 
-
- 
-
-  
-
-  $query = "INSERT INTO `customers`( `name`, `password`, `email`,`contact`) VALUES ('$name','$password','$email','$contact')";
-
-  
-  
-  $cr=mysqli_query($conn ,$query);
-
-  $_SESSION['name'] =$name;
-
-
-  if($cr){
-    echo "sucess";
-    
-    header('location: ../login.html');
-    
-  }else {
-    echo "error : " .$sql . mysqli_error($conn); 
-  }
-
+        echo "<script>
+            alert('Registration Successful');
+            window.location.href = '../login/login.html';
+          </script>";
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
 }
-
-
-
 ?>
